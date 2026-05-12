@@ -1,0 +1,35 @@
+name: Send Morning Brief
+
+on:
+  schedule:
+    - cron: '30 22 * * *'  # 매일 한국시간 오전 7시 30분 (UTC 22:30)
+  workflow_dispatch:  # 수동 실행 가능
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance feedparser openai schedule
+
+      - name: Send newsletter
+        env:
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SENDER_EMAIL: jogisang594@gmail.com
+          SENDER_NAME: 오늘의 시장 브리핑
+          REPLY_TO: jogisang594@gmail.com
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: 587
+          SMTP_USERNAME: jogisang594@gmail.com
+          AI_INTEGRATIONS_OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          AI_INTEGRATIONS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python newsletter/send_newsletter.py
