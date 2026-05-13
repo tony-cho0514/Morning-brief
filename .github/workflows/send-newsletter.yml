@@ -8,6 +8,10 @@ on:
 jobs:
   send:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: newsletter
+
     steps:
       - uses: actions/checkout@v4
 
@@ -29,9 +33,6 @@ jobs:
           SMTP_HOST: smtp.gmail.com
           SMTP_PORT: 587
           SMTP_USERNAME: jogisang594@gmail.com
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           AI_INTEGRATIONS_OPENAI_BASE_URL: https://api.openai.com/v1
           AI_INTEGRATIONS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          cd ${{ github.workspace }}/newsletter
-          python -c "import sys; sys.path.insert(0, '.'); exec(open('send_newsletter.py').read())"
+        run: python send_newsletter.py
