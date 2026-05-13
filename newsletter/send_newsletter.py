@@ -14,10 +14,11 @@ from email.utils import formataddr, make_msgid
 from pathlib import Path
 from string import Template
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import importlib.util as _ilu, pathlib as _pl
+_s = _ilu.spec_from_file_location("market_data", _pl.Path(__file__).parent/"market_data.py")
+_m = _ilu.module_from_spec(_s); _s.loader.exec_module(_m)
+build_market_context = _m.build_market_context
 
-from market_data import build_market_context  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
