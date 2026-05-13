@@ -95,8 +95,8 @@ def open_smtp(host: str, port: int, username: str, password: str, use_ssl: bool,
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Send an HTML email newsletter.")
-    parser.add_argument("--recipients", type=Path, default=Path("newsletter/recipients.csv"))
-    parser.add_argument("--template", type=Path, default=Path("newsletter/newsletter.html"))
+    parser.add_argument("--recipients", type=Path, default=Path("recipients.csv"))
+    parser.add_argument("--template", type=Path, default=Path("newsletter.html"))
     parser.add_argument(
         "--subject",
         default=os.environ.get("NEWSLETTER_SUBJECT", "오늘의 시장 브리핑 — $market_date"),
