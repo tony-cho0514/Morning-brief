@@ -1,6 +1,5 @@
 """Fetch US stock market snapshots and financial news headlines."""
 
-from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
