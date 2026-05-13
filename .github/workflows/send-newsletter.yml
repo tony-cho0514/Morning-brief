@@ -2,8 +2,8 @@ name: Send Morning Brief
 
 on:
   schedule:
-    - cron: '30 22 * * *'  # 매일 한국시간 오전 7시 30분 (UTC 22:30)
-  workflow_dispatch:  # 수동 실행 가능
+    - cron: '30 22 * * *'
+  workflow_dispatch:
 
 jobs:
   send:
@@ -29,10 +29,9 @@ jobs:
           SMTP_HOST: smtp.gmail.com
           SMTP_PORT: 587
           SMTP_USERNAME: jogisang594@gmail.com
-          AI_INTEGRATIONS_OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AI_INTEGRATIONS_OPENAI_BASE_URL: https://api.openai.com/v1
           AI_INTEGRATIONS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PYTHONPATH: ${{ github.workspace }}/newsletter
-
         run: |
-            cd newsletter && python send_newsletter.py
-
+          cd ${{ github.workspace }}/newsletter
+          python -c "import sys; sys.path.insert(0, '.'); exec(open('send_newsletter.py').read())"
