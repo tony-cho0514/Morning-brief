@@ -15,6 +15,8 @@ from pathlib import Path
 from string import Template
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from market_data import build_market_context  # noqa: E402
 
 logging.basicConfig(
