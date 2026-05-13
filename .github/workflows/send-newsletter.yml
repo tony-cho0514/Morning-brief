@@ -21,8 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install yfinance feedparser openai schedule
+        run: pip install yfinance feedparser openai schedule
 
       - name: Send newsletter
         env:
