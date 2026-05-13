@@ -31,5 +31,8 @@ jobs:
           SMTP_USERNAME: jogisang594@gmail.com
           AI_INTEGRATIONS_OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           AI_INTEGRATIONS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PYTHONPATH: ${{ github.workspace }}/newsletter
+
         run: |
-          python newsletter/send_newsletter.py
+            cd newsletter && python send_newsletter.py
+
